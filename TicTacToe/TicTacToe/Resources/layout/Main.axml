@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:p1="http://schemas.android.com/apk/res/android"
+    p1:minWidth="25px"
+    p1:minHeight="25px"
+    p1:layout_width="fill_parent"
+    p1:layout_height="fill_parent"
+    p1:id="@+id/relativeLayout"
+    p1:gravity="center">
+    <LinearLayout
+        p1:orientation="vertical"
+        p1:minWidth="25px"
+        p1:minHeight="25px"
+        p1:layout_width="wrap_content"
+        p1:layout_height="wrap_content"
+        p1:id="@+id/linearLayout">
+        <TextView
+            p1:text="Choose whether the player starts first or the computer."
+            p1:textAppearance="?android:attr/textAppearanceLarge"
+            p1:id="@+id/TitleText"
+            p1:gravity="center"
+            p1:layout_width="fill_parent"
+            p1:layout_height="wrap_content"
+            p1:layout_marginBottom="20dp" />
+        <Button
+            p1:text="Player Start"
+            p1:id="@+id/PlayerStartButton"
+            p1:layout_width="fill_parent"
+            p1:layout_height="wrap_content"
+            p1:layout_marginBottom="20dp" />
+        <Button
+            p1:text="Computer Start"
+            p1:id="@+id/ComputerStartButon"
+            p1:layout_width="fill_parent"
+            p1:layout_height="wrap_content" />
+    </LinearLayout>
+</RelativeLayout>
