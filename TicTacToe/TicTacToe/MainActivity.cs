@@ -5,10 +5,11 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Android.Content.PM;
 
 namespace TicTacToe
 {
-	[Activity (Label = "TicTacToe", MainLauncher = true)]
+	[Activity (Label = "TicTacToe", MainLauncher = true, LaunchMode = LaunchMode.SingleInstance)]
 	public class MainActivity : Activity
 	{
 
@@ -22,12 +23,16 @@ namespace TicTacToe
 
 			playerStartButton.Click += (sender, e) => 
 			{
-				StartActivity(typeof(PlayerGameActivity));
+				var gameActivity = new Intent (this, typeof(PlayerGameActivity));
+				gameActivity.PutExtra("PlayerStart", true);
+				StartActivity(gameActivity);
 			};
 
 			computerStartButton.Click += (sender, e) => 
 			{
-				StartActivity(typeof(PlayerGameActivity));
+				var gameActivity = new Intent (this, typeof(PlayerGameActivity));
+				gameActivity.PutExtra("PlayerStart", false);
+				StartActivity(gameActivity);
 			};
 		}
 	}

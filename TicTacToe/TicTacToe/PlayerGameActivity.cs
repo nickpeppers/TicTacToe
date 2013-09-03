@@ -14,29 +14,219 @@ namespace TicTacToe
 	[Activity (Label = "PlayerGameActivity")]			
 	public class PlayerGameActivity : Activity
 	{
+		private Button[] _board;
+		private bool _playerStart;
+		private bool _yourTurn;
+		int _turnCount = 0;
+
 		protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
-
 			SetContentView (Resource.Layout.PlayerGameLayout);
 	
-			var button1 = FindViewById<Button> (Resource.Id.button1);
-			var button2 = FindViewById<Button> (Resource.Id.button2);
-			var button3 = FindViewById<Button> (Resource.Id.button3);
-			var button4 = FindViewById<Button> (Resource.Id.button4);
-			var button5 = FindViewById<Button> (Resource.Id.button5);
-			var button6 = FindViewById<Button> (Resource.Id.button6);
-			var button7 = FindViewById<Button> (Resource.Id.button7);
-			var button8 = FindViewById<Button> (Resource.Id.button8);
-			var button9 = FindViewById<Button> (Resource.Id.button9);
+			bool playerStart = Intent.GetBooleanExtra("PlayerStart", true);
+			_playerStart = playerStart = _yourTurn;
+		
+
+			_board = new Button[] 
+			{
+				FindViewById<Button> (Resource.Id.button1),
+				FindViewById<Button> (Resource.Id.button2),
+				FindViewById<Button> (Resource.Id.button3),
+				FindViewById<Button> (Resource.Id.button4),
+				FindViewById<Button> (Resource.Id.button5),
+				FindViewById<Button> (Resource.Id.button6),
+				FindViewById<Button> (Resource.Id.button7),
+				FindViewById<Button> (Resource.Id.button8),
+				FindViewById<Button> (Resource.Id.button9),
+			};
+
+			foreach (var button in _board) 
+			{
+				button.Click += ButtonClick;
+			}
+
 
 			var restartButton = FindViewById<Button> (Resource.Id.RestartButton);
 
 			restartButton.Click += (sender, e) => 
 			{
+				Finish();
 				StartActivity(typeof(MainActivity));
 			};
 
+		}
+
+		private void ButtonClick (object sender, EventArgs e)
+		{
+			var button = sender as Button;
+			// If the player started the game
+			if (_playerStart)
+			{
+				// if it's the players turn
+				if (_yourTurn)
+				{
+					button.Text = "X";
+				}
+				// If it's the computers turn
+				else
+				{
+					button.Text = "O";
+				}
+
+				_yourTurn = !_yourTurn;
+			}
+			// If computer started the game
+			else
+			{
+				// If it's the players turn
+				if(_yourTurn)
+				{
+					button.Text = "O";
+				}
+				// if it's the computers turn
+				else
+				{
+					button.Text = "X";
+				}
+			}
+
+			// increases the turn counter
+			_turnCount++;
+
+			// checks for win after turn 4 since there is no possibility of winning before then
+			if (_turnCount > 4)
+			{
+				CheckWin (_board);
+			}
+
+			// changes flag for player turn
+			_yourTurn = !_yourTurn;
+
+			button.Enabled = false;
+
+		}
+
+		// checks to see if someone has won the game
+		private void CheckWin (Button[] buttons)
+		{
+			// Pop up if you lose the game
+			var loseDialog = new AlertDialog.Builder (this).SetTitle("Sorry!,").SetMessage("You lost please try again.").SetPositiveButton("Restart",(sender, e) => 
+			{
+				Finish();
+				StartActivity(typeof(MainActivity));
+			}).Create();
+
+			// Pop up if you win the game 
+			var winDialog = new AlertDialog.Builder (this).SetTitle("Congratulations!").SetMessage("You won.").SetPositiveButton("Restart",(sender, e) => 
+			{
+				Finish();
+				StartActivity(typeof(MainActivity));
+			}).Create();
+
+			var tieDialog = new AlertDialog.Builder (this).SetTitle("Tie Game!").SetPositiveButton("Restart",(sender, e) => 
+			{
+				Finish();
+				StartActivity(typeof(MainActivity));
+			}).Create();
+
+
+			if(buttons[0].Text == buttons[1].Text & buttons[1].Text == buttons[2].Text & buttons[0].Text != String.Empty)
+			{
+				if (_yourTurn)
+				{
+					winDialog.Show ();
+				}
+				else
+				{
+					loseDialog.Show ();
+				}
+			}
+			else if(buttons[3].Text == buttons[4].Text & buttons[4].Text == buttons[5].Text & buttons[3].Text != String.Empty)
+			{
+				if (_yourTurn)
+				{
+					winDialog.Show ();
+				}
+				else
+				{
+					loseDialog.Show ();
+				}
+			}
+			else if(buttons[6].Text == buttons[7].Text & buttons[7].Text == buttons[8].Text & buttons[6].Text != String.Empty)
+			{
+				if (_yourTurn)
+				{
+					winDialog.Show ();
+				}
+				else
+				{
+					loseDialog.Show ();
+				}
+			}
+			else if(buttons[0].Text == buttons[3].Text & buttons[3].Text == buttons[6].Text & buttons[0].Text != String.Empty)
+			{
+				if (_yourTurn)
+				{
+					winDialog.Show ();
+				}
+				else
+				{
+					loseDialog.Show ();
+				}
+			}
+			else if(buttons[1].Text == buttons[4].Text & buttons[4].Text == buttons[7].Text & buttons[1].Text != String.Empty)
+			{
+				if (_yourTurn)
+				{
+					winDialog.Show ();
+				}
+				else
+				{
+					loseDialog.Show ();
+				}
+			}
+			else if(buttons[2].Text == buttons[5].Text & buttons[5].Text == buttons[8].Text & buttons[2].Text != String.Empty)
+			{
+				if (_yourTurn)
+				{
+					winDialog.Show ();
+				}
+				else
+				{
+					loseDialog.Show ();
+				}
+			}
+			else if(buttons[0].Text == buttons[4].Text & buttons[4].Text == buttons[8].Text & buttons[0].Text != String.Empty)
+			{
+				if (_yourTurn)
+				{
+					winDialog.Show ();
+				}
+				else
+				{
+					loseDialog.Show ();
+				}
+			}
+			else if(buttons[2].Text == buttons[4].Text & buttons[4].Text == buttons[6].Text & buttons[2].Text != String.Empty)
+			{
+				if (_yourTurn)
+				{
+					winDialog.Show ();
+				}
+				else
+				{
+					loseDialog.Show ();
+				}
+			}
+			else if(_turnCount == 9)
+			{
+				tieDialog.Show ();
+			}
+			else
+			{
+				return;
+			}
 		}
 	}
 }
