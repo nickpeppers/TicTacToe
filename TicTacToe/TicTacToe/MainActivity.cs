@@ -9,7 +9,7 @@ using Android.Content.PM;
 
 namespace TicTacToe
 {
-	[Activity (Label = "TicTacToe", MainLauncher = true, LaunchMode = LaunchMode.SingleInstance)]
+	[Activity (Label = "TicTacToe", MainLauncher = true, LaunchMode = LaunchMode.SingleInstance, ScreenOrientation = ScreenOrientation.Portrait)]
 	public class MainActivity : Activity
 	{
 
@@ -19,7 +19,7 @@ namespace TicTacToe
 			SetContentView (Resource.Layout.Main);
 
 			Button playerStartButton = FindViewById<Button> (Resource.Id.PlayerStartButton);
-			Button computerStartButton = FindViewById<Button> (Resource.Id.PlayerStartButton);
+			Button computerStartButton = FindViewById<Button> (Resource.Id.ComputerStartButon);
 
 			playerStartButton.Click += (sender, e) => 
 			{

@@ -8,10 +8,11 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Android.Content.PM;
 
 namespace TicTacToe
 {
-	[Activity (Label = "PlayerGameActivity")]			
+	[Activity (Label = "PlayerGameActivity", ScreenOrientation = ScreenOrientation.Portrait)]			
 	public class PlayerGameActivity : Activity
 	{
 		private Button[] _board;
@@ -23,11 +24,12 @@ namespace TicTacToe
 		{
 			base.OnCreate (bundle);
 			SetContentView (Resource.Layout.PlayerGameLayout);
-	
+
+			// pulls in from previous activity which button was selected
 			bool playerStart = Intent.GetBooleanExtra("PlayerStart", true);
 			_playerStart = playerStart = _yourTurn;
 		
-
+			// creates list of buttons
 			_board = new Button[] 
 			{
 				FindViewById<Button> (Resource.Id.button1),
@@ -41,6 +43,7 @@ namespace TicTacToe
 				FindViewById<Button> (Resource.Id.button9),
 			};
 
+			// adds click event to the list of buttons
 			foreach (var button in _board) 
 			{
 				button.Click += ButtonClick;
@@ -49,6 +52,7 @@ namespace TicTacToe
 
 			var restartButton = FindViewById<Button> (Resource.Id.RestartButton);
 
+			// goes back to the mode select screen
 			restartButton.Click += (sender, e) => 
 			{
 				Finish();
@@ -73,8 +77,6 @@ namespace TicTacToe
 				{
 					button.Text = "O";
 				}
-
-				_yourTurn = !_yourTurn;
 			}
 			// If computer started the game
 			else
@@ -93,6 +95,7 @@ namespace TicTacToe
 
 			// increases the turn counter
 			_turnCount++;
+
 
 			// checks for win after turn 4 since there is no possibility of winning before then
 			if (_turnCount > 4)
@@ -124,6 +127,7 @@ namespace TicTacToe
 				StartActivity(typeof(MainActivity));
 			}).Create();
 
+			// Pop up if you tie the game
 			var tieDialog = new AlertDialog.Builder (this).SetTitle("Tie Game!").SetPositiveButton("Restart",(sender, e) => 
 			{
 				Finish();
