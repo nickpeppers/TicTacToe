@@ -27,8 +27,9 @@ namespace TicTacToe
 
 			// pulls in from previous activity which button was selected
 			bool playerStart = Intent.GetBooleanExtra("PlayerStart", true);
-			_playerStart = playerStart = _yourTurn;
-		
+			_playerStart = playerStart;
+			_yourTurn = playerStart;
+
 			// creates list of buttons
 			_board = new Button[] 
 			{
