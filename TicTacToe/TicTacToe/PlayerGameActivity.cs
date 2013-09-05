@@ -18,7 +18,8 @@ namespace TicTacToe
 		private Button[] _board;
 		private bool _playerStart;
 		private bool _yourTurn;
-		int _turnCount = 0;
+		private int _turnCount = 0;
+        private int _previousMove;
 
 		protected override void OnCreate (Bundle bundle)
 		{
@@ -69,6 +70,7 @@ namespace TicTacToe
 
         private void OpponentMove(Button[] buttons)
         {
+
             if (!_playerStart)
             {
                 switch (_turnCount)
@@ -76,20 +78,19 @@ namespace TicTacToe
                     case 0:
                         buttons[4].PerformClick();
                         return;
-                    case 1:
-                    //switch()
-                        return;
                     case 2:
-                        return;
-                    case 3:
+                        if (CornerMoveCheck(buttons))
+                        {
+
+                        }
+                        else
+                        {
+
+                        }
                         return;
                     case 4:
                         return;
-                    case 5:
-                        return;
                     case 6:
-                        return;
-                    case 7:
                         return;
                     case 8:
                         return;
@@ -99,13 +100,46 @@ namespace TicTacToe
             }
             else
             {
-
+                switch (_turnCount)
+                {
+                    case 1:
+                        buttons[4].PerformClick();
+                        return;
+                    case 3:
+                        return;
+                    case 4:
+                        return;
+                    case 5:
+                        return;
+                    case 7:
+                        return;
+                    
+                    default:
+                        return;
+                }
             }
+        }
+
+        private void CornerMoveCheck(Button[] buttons)
+        {
+            if (buttons[0].Enabled == false || buttons[2].Enabled == false || buttons[6].Enabled == false || buttons[8].Enabled == false)
+                return true;
+            else
+                return false;
         }
 
 		private void ButtonClick (object sender, EventArgs e)
 		{
 			var button = sender as Button;
+
+            for (int i = 0; i < _board.Length; i++)
+            {
+                if (button == _board[i])
+                {
+                    _previousMove = i;
+                }
+            }
+
 			// If the player started the game
 			if (_playerStart)
 			{
