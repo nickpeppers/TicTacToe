@@ -81,7 +81,22 @@ namespace TicTacToe
                     case 2:
                         if (CornerMoveCheck(buttons))
                         {
-
+                            if (buttons[0].Enabled == false)
+                            {
+                                buttons[8].PerformClick();
+                            }
+                            if (buttons[2].Enabled == false)
+                            {
+                                buttons[6].PerformClick();
+                            }
+                            if (buttons[6].Enabled == false)
+                            {
+                                buttons[2].PerformClick();
+                            }
+                            if (buttons[8].Enabled == false)
+                            {
+                                buttons[0].PerformClick();
+                            }
                         }
                         else
                         {
@@ -123,9 +138,13 @@ namespace TicTacToe
         private void CornerMoveCheck(Button[] buttons)
         {
             if (buttons[0].Enabled == false || buttons[2].Enabled == false || buttons[6].Enabled == false || buttons[8].Enabled == false)
+            {
                 return true;
+            }
             else
+            {
                 return false;
+            }
         }
 
 		private void ButtonClick (object sender, EventArgs e)
