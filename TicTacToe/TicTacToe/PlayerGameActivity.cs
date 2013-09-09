@@ -20,6 +20,7 @@ namespace TicTacToe
 		private bool _yourTurn;
 		private int _turnCount = 0;
         private int _previousMove;
+        private bool _playerSecondTurnCornerStart;
 
 		protected override void OnCreate (Bundle bundle)
 		{
@@ -79,31 +80,47 @@ namespace TicTacToe
                         buttons[4].PerformClick();
                         return;
                     case 2:
-                        if (CornerMoveCheck(buttons))
+                        CornerMoveCheck(buttons);
+                        if (_playerSecondTurnCornerStart)
                         {
                             if (buttons[0].Enabled == false)
                             {
                                 buttons[8].PerformClick();
                             }
-                            if (buttons[2].Enabled == false)
+                            else if (buttons[2].Enabled == false)
                             {
                                 buttons[6].PerformClick();
                             }
-                            if (buttons[6].Enabled == false)
+                            else if (buttons[6].Enabled == false)
                             {
                                 buttons[2].PerformClick();
                             }
-                            if (buttons[8].Enabled == false)
+                            else
                             {
                                 buttons[0].PerformClick();
                             }
                         }
                         else
                         {
-
+                            if (buttons[1].Enabled == false || buttons[7].Enabled == false)
+                            {
+                                buttons[5].PerformClick();
+                            }
+                            else
+                            {
+                                buttons[7].PerformClick();
+                            }
                         }
                         return;
                     case 4:
+                        if (_playerSecondTurnCornerStart)
+                        {
+
+                        }
+                        else
+                        {
+
+                        }
                         return;
                     case 6:
                         return;
@@ -137,15 +154,21 @@ namespace TicTacToe
 
         private void CornerMoveCheck(Button[] buttons)
         {
-            if (buttons[0].Enabled == false || buttons[2].Enabled == false || buttons[6].Enabled == false || buttons[8].Enabled == false)
+            if (_previousMove == 0 || _previousMove == 0 || _previousMove == 0 || _previousMove == 0 && buttons[_previousMove].Enabled == false)
             {
-                return true;
+                _playerSecondTurnCornerStart = true;
             }
             else
             {
-                return false;
+                _playerSecondTurnCornerStart = false;
             }
         }
+
+        private void CheckForWinMove(Button[] buttons)
+        {
+           
+        }
+
 
 		private void ButtonClick (object sender, EventArgs e)
 		{

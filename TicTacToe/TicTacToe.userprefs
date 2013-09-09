@@ -2,17 +2,16 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="TicTacToe\PlayerGameActivity.cs">
     <Files>
-      <File FileName="TicTacToe\PlayerGameActivity.cs" Line="99" Column="30" />
+      <File FileName="TicTacToe\PlayerGameActivity.cs" Line="124" Column="31" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
-        <State expanded="True">
+        <State expanded="True" selected="True">
           <Node name="TicTacToe" expanded="True">
             <Node name="Properties" expanded="True" />
             <Node name="Resources" expanded="True">
               <Node name="layout" expanded="True" />
             </Node>
-            <Node name="PlayerGameActivity.cs" selected="True" />
           </Node>
         </State>
       </Pad>
