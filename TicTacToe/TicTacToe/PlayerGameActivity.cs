@@ -20,6 +20,8 @@ namespace TicTacToe
 		private bool _yourTurn;
 		private int _turnCount = 0;
         private int _previousMove;
+        private int _winMove;
+        private int _blockMove;
         private bool _playerSecondTurnCornerStart;
 
 		protected override void OnCreate (Bundle bundle)
@@ -164,11 +166,481 @@ namespace TicTacToe
             }
         }
 
-        private void CheckForWinMove(Button[] buttons)
+        private bool CheckForBlockMove(Button[] buttons)
         {
-           
+            if (_playerStart)
+            {
+                if (buttons[1].Text == "X" & buttons[2].Text == "X" & buttons[0].Enabled == true)
+                {
+                    _blockMove = 0;
+                    return true;
+                }
+                else if (buttons[0].Text == "X" & buttons[2].Text == "X" & buttons[1].Enabled == true)
+                {
+                    _blockMove = 1;
+                    return true;
+                }
+                else if (buttons[0].Text == "X" & buttons[1].Text == "X" & buttons[2].Enabled == true)
+                {
+                    _blockMove = 2;
+                    return true;
+                }
+                else if (buttons[4].Text == "X" & buttons[5].Text == "X" & buttons[3].Enabled == true)
+                {
+                    _blockMove = 3;
+                    return true;
+                }
+                else if (buttons[3].Text == "X" & buttons[5].Text == "X" & buttons[4].Enabled == true)
+                {
+                    _blockMove = 4;
+                    return true;
+                }
+                else if (buttons[3].Text == "X" & buttons[4].Text == "X" & buttons[5].Enabled == true)
+                {
+                    _blockMove = 5;
+                    return true;
+                }
+                else if (buttons[7].Text == "X" & buttons[8].Text == "X" & buttons[6].Enabled == true)
+                {
+                    _blockMove = 6;
+                    return true;
+                }
+                else if (buttons[6].Text == "X" & buttons[8].Text == "X" & buttons[7].Enabled == true)
+                {
+                    _blockMove = 7;
+                    return true;
+                }
+                else if (buttons[6].Text == "X" & buttons[7].Text == "X" & buttons[8].Enabled == true)
+                {
+                    _blockMove = 8;
+                    return true;
+                }
+                else if (buttons[0].Text == "X" & buttons[4].Text == "X" & buttons[8].Enabled == true)
+                {
+                    _blockMove = 8;
+                    return true;
+                }
+                else if (buttons[4].Text == "X" & buttons[8].Text == "X" & buttons[0].Enabled == true)
+                {
+                    _blockMove = 0;
+                    return true;
+                }
+                else if (buttons[6].Text == "X" & buttons[4].Text == "X" & buttons[2].Enabled == true)
+                {
+                    _blockMove = 2;
+                    return true;
+                }
+                else if (buttons[2].Text == "X" & buttons[4].Text == "X" & buttons[6].Enabled == true)
+                {
+                    _blockMove = 6;
+                    return true;
+                }
+                else if (buttons[3].Text == "X" & buttons[6].Text == "X" & buttons[0].Enabled == true)
+                {
+                    _blockMove = 0;
+                    return true;
+                }
+                else if (buttons[4].Text == "X" & buttons[7].Text == "X" & buttons[1].Enabled == true)
+                {
+                    _blockMove = 1;
+                    return true;
+                }
+                else if (buttons[5].Text == "X" & buttons[8].Text == "X" & buttons[2].Enabled == true)
+                {
+                    _blockMove = 2;
+                    return true;
+                }
+                else if (buttons[0].Text == "X" & buttons[6].Text == "X" & buttons[3].Enabled == true)
+                {
+                    _blockMove = 3;
+                    return true;
+                }
+                else if (buttons[1].Text == "X" & buttons[7].Text == "X" & buttons[4].Enabled == true)
+                {
+                    _blockMove = 4;
+                    return true;
+                }
+                else if (buttons[2].Text == "X" & buttons[8].Text == "X" & buttons[5].Enabled == true)
+                {
+                    _blockMove = 5;
+                    return true;
+                }
+                else if (buttons[0].Text == "X" & buttons[3].Text == "X" & buttons[6].Enabled == true)
+                {
+                    _blockMove = 6;
+                    return true;
+                }
+                else if (buttons[1].Text == "X" & buttons[4].Text == "X" & buttons[7].Enabled == true)
+                {
+                    _blockMove = 7;
+                    return true;
+                }
+                else if (buttons[2].Text == "X" & buttons[5].Text == "X" & buttons[8].Enabled == true)
+                {
+                    _blockMove = 8;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                if (buttons[1].Text == "O" & buttons[2].Text == "O" & buttons[0].Enabled == true)
+                {
+                    _blockMove = 0;
+                    return true;
+                }
+                else if (buttons[0].Text == "O" & buttons[2].Text == "O" & buttons[1].Enabled == true)
+                {
+                    _blockMove = 1;
+                    return true;
+                }
+                else if (buttons[0].Text == "O" & buttons[1].Text == "O" & buttons[2].Enabled == true)
+                {
+                    _blockMove = 2;
+                    return true;
+                }
+                else if (buttons[4].Text == "O" & buttons[5].Text == "O" & buttons[3].Enabled == true)
+                {
+                    _blockMove = 3;
+                    return true;
+                }
+                else if (buttons[3].Text == "O" & buttons[5].Text == "O" & buttons[4].Enabled == true)
+                {
+                    _blockMove = 4;
+                    return true;
+                }
+                else if (buttons[3].Text == "O" & buttons[4].Text == "O" & buttons[5].Enabled == true)
+                {
+                    _blockMove = 5;
+                    return true;
+                }
+                else if (buttons[7].Text == "O" & buttons[8].Text == "O" & buttons[6].Enabled == true)
+                {
+                    _blockMove = 6;
+                    return true;
+                }
+                else if (buttons[6].Text == "O" & buttons[8].Text == "O" & buttons[7].Enabled == true)
+                {
+                    _blockMove = 7;
+                    return true;
+                }
+                else if (buttons[6].Text == "O" & buttons[7].Text == "O" & buttons[8].Enabled == true)
+                {
+                    _blockMove = 8;
+                    return true;
+                }
+                else if (buttons[0].Text == "O" & buttons[4].Text == "O" & buttons[8].Enabled == true)
+                {
+                    _blockMove = 8;
+                    return true;
+                }
+                else if (buttons[4].Text == "O" & buttons[8].Text == "O" & buttons[0].Enabled == true)
+                {
+                    _blockMove = 0;
+                    return true;
+                }
+                else if (buttons[6].Text == "O" & buttons[4].Text == "O" & buttons[2].Enabled == true)
+                {
+                    _blockMove = 2;
+                    return true;
+                }
+                else if (buttons[2].Text == "O" & buttons[4].Text == "O" & buttons[6].Enabled == true)
+                {
+                    _blockMove = 6;
+                    return true;
+                }
+                else if (buttons[3].Text == "O" & buttons[6].Text == "O" & buttons[0].Enabled == true)
+                {
+                    _blockMove = 0;
+                    return true;
+                }
+                else if (buttons[4].Text == "O" & buttons[7].Text == "O" & buttons[1].Enabled == true)
+                {
+                    _blockMove = 1;
+                    return true;
+                }
+                else if (buttons[5].Text == "O" & buttons[8].Text == "O" & buttons[2].Enabled == true)
+                {
+                    _blockMove = 2;
+                    return true;
+                }
+                else if (buttons[0].Text == "O" & buttons[6].Text == "O" & buttons[3].Enabled == true)
+                {
+                    _blockMove = 3;
+                    return true;
+                }
+                else if (buttons[1].Text == "O" & buttons[7].Text == "O" & buttons[4].Enabled == true)
+                {
+                    _blockMove = 4;
+                    return true;
+                }
+                else if (buttons[2].Text == "O" & buttons[8].Text == "O" & buttons[5].Enabled == true)
+                {
+                    _blockMove = 5;
+                    return true;
+                }
+                else if (buttons[0].Text == "O" & buttons[3].Text == "O" & buttons[6].Enabled == true)
+                {
+                    _blockMove = 6;
+                    return true;
+                }
+                else if (buttons[1].Text == "O" & buttons[4].Text == "O" & buttons[7].Enabled == true)
+                {
+                    _blockMove = 7;
+                    return true;
+                }
+                else if (buttons[2].Text == "O" & buttons[5].Text == "O" & buttons[8].Enabled == true)
+                {
+                    _blockMove = 8;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
         }
 
+        private bool CheckForWinMove(Button[] buttons)
+        {
+            if (!_playerStart)
+            {
+                if (buttons[1].Text == "X" & buttons[2].Text == "X" & buttons[0].Enabled == true)
+                {
+                    _winMove = 0;
+                    return true;
+                }
+                else if (buttons[0].Text == "X" & buttons[2].Text == "X" & buttons[1].Enabled == true)
+                {
+                    _winMove = 1;
+                    return true;
+                }
+                else if (buttons[0].Text == "X" & buttons[1].Text == "X" & buttons[2].Enabled == true)
+                {
+                    _winMove = 2;
+                    return true;
+                }
+                else if (buttons[4].Text == "X" & buttons[5].Text == "X" & buttons[3].Enabled == true)
+                {
+                    _winMove = 3;
+                    return true;
+                }
+                else if (buttons[3].Text == "X" & buttons[5].Text == "X" & buttons[4].Enabled == true)
+                {
+                    _winMove = 4;
+                    return true;
+                }
+                else if (buttons[3].Text == "X" & buttons[4].Text == "X" & buttons[5].Enabled == true)
+                {
+                    _winMove = 5;
+                    return true;
+                }
+                else if (buttons[7].Text == "X" & buttons[8].Text == "X" & buttons[6].Enabled == true)
+                {
+                    _winMove = 6;
+                    return true;
+                }
+                else if (buttons[6].Text == "X" & buttons[8].Text == "X" & buttons[7].Enabled == true)
+                {
+                    _winMove = 7;
+                    return true;
+                }
+                else if (buttons[6].Text == "X" & buttons[7].Text == "X" & buttons[8].Enabled == true)
+                {
+                    _winMove = 8;
+                    return true;
+                }
+                else if (buttons[0].Text == "X" & buttons[4].Text == "X" & buttons[8].Enabled == true)
+                {
+                    _winMove = 8;
+                    return true;
+                }
+                else if (buttons[4].Text == "X" & buttons[8].Text == "X" & buttons[0].Enabled == true)
+                {
+                    _winMove = 0;
+                    return true;
+                }
+                else if (buttons[6].Text == "X" & buttons[4].Text == "X" & buttons[2].Enabled == true)
+                {
+                    _winMove = 2;
+                    return true;
+                }
+                else if (buttons[2].Text == "X" & buttons[4].Text == "X" & buttons[6].Enabled == true)
+                {
+                    _winMove = 6;
+                    return true;
+                }
+                else if (buttons[3].Text == "X" & buttons[6].Text == "X" & buttons[0].Enabled == true)
+                {
+                    _winMove = 0;
+                    return true;
+                }
+                else if (buttons[4].Text == "X" & buttons[7].Text == "X" & buttons[1].Enabled == true)
+                {
+                    _winMove = 1;
+                    return true;
+                }
+                else if (buttons[5].Text == "X" & buttons[8].Text == "X" & buttons[2].Enabled == true)
+                {
+                    _winMove = 2;
+                    return true;
+                }
+                else if (buttons[0].Text == "X" & buttons[6].Text == "X" & buttons[3].Enabled == true)
+                {
+                    _winMove = 3;
+                    return true;
+                }
+                else if (buttons[1].Text == "X" & buttons[7].Text == "X" & buttons[4].Enabled == true)
+                {
+                    _winMove = 4;
+                    return true;
+                }
+                else if (buttons[2].Text == "X" & buttons[8].Text == "X" & buttons[5].Enabled == true)
+                {
+                    _winMove = 5;
+                    return true;
+                }
+                else if (buttons[0].Text == "X" & buttons[3].Text == "X" & buttons[6].Enabled == true)
+                {
+                    _winMove = 6;
+                    return true;
+                }
+                else if (buttons[1].Text == "X" & buttons[4].Text == "X" & buttons[7].Enabled == true)
+                {
+                    _winMove = 7;
+                    return true;
+                }
+                else if (buttons[2].Text == "X" & buttons[5].Text == "X" & buttons[8].Enabled == true)
+                {
+                    _winMove = 8;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                if (buttons[1].Text == "O" & buttons[2].Text == "O" & buttons[0].Enabled == true)
+                {
+                    _winMove = 0;
+                    return true;
+                }
+                else if (buttons[0].Text == "O" & buttons[2].Text == "O" & buttons[1].Enabled == true)
+                {
+                    _winMove = 1;
+                    return true;
+                }
+                else if (buttons[0].Text == "O" & buttons[1].Text == "O" & buttons[2].Enabled == true)
+                {
+                    _winMove = 2;
+                    return true;
+                }
+                else if (buttons[4].Text == "O" & buttons[5].Text == "O" & buttons[3].Enabled == true)
+                {
+                    _winMove = 3;
+                    return true;
+                }
+                else if (buttons[3].Text == "O" & buttons[5].Text == "O" & buttons[4].Enabled == true)
+                {
+                    _winMove = 4;
+                    return true;
+                }
+                else if (buttons[3].Text == "O" & buttons[4].Text == "O" & buttons[5].Enabled == true)
+                {
+                    _winMove = 5;
+                    return true;
+                }
+                else if (buttons[7].Text == "O" & buttons[8].Text == "O" & buttons[6].Enabled == true)
+                {
+                    _winMove = 6;
+                    return true;
+                }
+                else if (buttons[6].Text == "O" & buttons[8].Text == "O" & buttons[7].Enabled == true)
+                {
+                    _winMove = 7;
+                    return true;
+                }
+                else if (buttons[6].Text == "O" & buttons[7].Text == "O" & buttons[8].Enabled == true)
+                {
+                    _winMove = 8;
+                    return true;
+                }
+                else if (buttons[0].Text == "O" & buttons[4].Text == "O" & buttons[8].Enabled == true)
+                {
+                    _winMove = 8;
+                    return true;
+                }
+                else if (buttons[4].Text == "O" & buttons[8].Text == "O" & buttons[0].Enabled == true)
+                {
+                    _winMove = 0;
+                    return true;
+                }
+                else if (buttons[6].Text == "O" & buttons[4].Text == "O" & buttons[2].Enabled == true)
+                {
+                    _winMove = 2;
+                    return true;
+                }
+                else if (buttons[2].Text == "O" & buttons[4].Text == "O" & buttons[6].Enabled == true)
+                {
+                    _winMove = 6;
+                    return true;
+                }
+                else if (buttons[3].Text == "O" & buttons[6].Text == "O" & buttons[0].Enabled == true)
+                {
+                    _winMove = 0;
+                    return true;
+                }
+                else if (buttons[4].Text == "O" & buttons[7].Text == "O" & buttons[1].Enabled == true)
+                {
+                    _winMove = 1;
+                    return true;
+                }
+                else if (buttons[5].Text == "O" & buttons[8].Text == "O" & buttons[2].Enabled == true)
+                {
+                    _winMove = 2;
+                    return true;
+                }
+                else if (buttons[0].Text == "O" & buttons[6].Text == "O" & buttons[3].Enabled == true)
+                {
+                    _winMove = 3;
+                    return true;
+                }
+                else if (buttons[1].Text == "O" & buttons[7].Text == "O" & buttons[4].Enabled == true)
+                {
+                    _winMove = 4;
+                    return true;
+                }
+                else if (buttons[2].Text == "O" & buttons[8].Text == "O" & buttons[5].Enabled == true)
+                {
+                    _winMove = 5;
+                    return true;
+                }
+                else if (buttons[0].Text == "O" & buttons[3].Text == "O" & buttons[6].Enabled == true)
+                {
+                    _winMove = 6;
+                    return true;
+                }
+                else if (buttons[1].Text == "O" & buttons[4].Text == "O" & buttons[7].Enabled == true)
+                {
+                    _winMove = 7;
+                    return true;
+                }
+                else if (buttons[2].Text == "O" & buttons[5].Text == "O" & buttons[8].Enabled == true)
+                {
+                    _winMove = 8;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
 
 		private void ButtonClick (object sender, EventArgs e)
 		{
