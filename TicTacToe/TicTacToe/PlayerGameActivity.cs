@@ -22,6 +22,7 @@ namespace TicTacToe
         private int _previousMove;
         private int _winMove;
         private int _blockMove;
+        private int _normalMove;
         private bool _playerSecondTurnCornerStart;
 
 		protected override void OnCreate (Bundle bundle)
@@ -639,6 +640,46 @@ namespace TicTacToe
                 {
                     return false;
                 }
+            }
+        }
+
+        private void CheckForNextMove(Button[] buttons)
+        {
+            if (buttons[0].Enabled == true)
+            {
+                _normalMove = 0;
+            }
+            else if (buttons[2].Enabled == true)
+            {
+                _normalMove = 2;
+            }
+            else if (buttons[6].Enabled == true)
+            {
+                _normalMove = 6;
+            }
+            else if (buttons[8].Enabled == true)
+            {
+                _normalMove = 8;
+            }
+            else if (buttons[1].Enabled == true)
+            {
+                _normalMove = 1;
+            }
+            else if (buttons[3].Enabled == true)
+            {
+                _normalMove = 3;
+            }
+            else if (buttons[4].Enabled == true)
+            {
+                _normalMove = 4;
+            }
+            else if (buttons[5].Enabled == true)
+            {
+                _normalMove = 5;
+            }
+            else
+            {
+                _normalMove = 7;
             }
         }
 
