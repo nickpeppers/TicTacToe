@@ -36,7 +36,7 @@
         <LinearLayout
             android:orientation="horizontal"
             android:minHeight="25px"
-            android:id="@+id/VerticalLine1"
+            android:id="@+id/VerticalLine2"
             android:background="#ffffffff"
             android:layout_width="2dp"
             android:layout_height="fill_parent" />
@@ -73,7 +73,7 @@
         <LinearLayout
             android:orientation="horizontal"
             android:minHeight="25px"
-            android:id="@+id/VerticalLine1"
+            android:id="@+id/VerticalLine3"
             android:background="#ffffffff"
             android:layout_width="2dp"
             android:layout_height="fill_parent" />
@@ -86,7 +86,7 @@
         <LinearLayout
             android:orientation="horizontal"
             android:minHeight="25px"
-            android:id="@+id/VerticalLine1"
+            android:id="@+id/VerticalLine4"
             android:background="#ffffffff"
             android:layout_width="2dp"
             android:layout_height="fill_parent" />
@@ -125,7 +125,7 @@
         <LinearLayout
             android:orientation="horizontal"
             android:minHeight="25px"
-            android:id="@+id/VerticalLine1"
+            android:id="@+id/VerticalLine5"
             android:background="#ffffffff"
             android:layout_width="2dp"
             android:layout_height="fill_parent" />
@@ -138,7 +138,7 @@
         <LinearLayout
             android:orientation="horizontal"
             android:minHeight="25px"
-            android:id="@+id/VerticalLine1"
+            android:id="@+id/VerticalLine6"
             android:background="#ffffffff"
             android:layout_width="2dp"
             android:layout_height="fill_parent" />
