@@ -24,6 +24,7 @@ namespace TicTacToe
         private int _blockMove;
         private int _normalMove;
         private bool _playerSecondTurnCornerStart;
+        private bool _gameOver;
 
 		protected override void OnCreate (Bundle bundle)
 		{
@@ -65,24 +66,106 @@ namespace TicTacToe
 				StartActivity(typeof(MainActivity));
 			};
 
+            // Check if the computer goes first if so the computer moves calling OpponentMove
             if (!_playerStart)
             {
                 OpponentMove(_board);
             }
-
 		}
 
+        // default action of all button clicks
+        private void ButtonClick (object sender, EventArgs e)
+        {
+            var button = sender as Button;
+
+
+            // sets what the previos players last move was
+            for (int i = 0; i < _board.Length; i++)
+            {
+                if (button == _board[i])
+                {
+                    _previousMove = i;
+                }
+            }
+            // Handles the case if a person hits back on popup after a game is over
+            if (_gameOver)
+            {
+                var gameOverDialog = new AlertDialog.Builder (this).SetTitle("Sorry!,").SetMessage("The game is over please restart.").SetPositiveButton("Restart",(sender1, e1) => 
+                {
+                    Finish();
+                    StartActivity(typeof(MainActivity));
+                }).Create();
+                gameOverDialog.Show();
+            }
+            else
+            {
+                // If the player started the game
+                if (_playerStart)
+                {
+                    // if it's the players turn
+                    if (_yourTurn)
+                    {
+                        button.Text = "X";
+                    }
+                    // If it's the computers turn
+                    else
+                    {
+                        button.Text = "O";
+                    }
+                }
+                // If computer started the game
+                else
+                {
+                    // If it's the players turn
+                    if(_yourTurn)
+                    {
+                        button.Text = "O";
+                    }
+                    // if it's the computers turn
+                    else
+                    {
+                        button.Text = "X";
+                    }
+                }
+
+                // increases the turn counter
+                _turnCount++;
+
+
+                // checks for win after turn 4 since there is no possibility of winning before then
+                if (_turnCount > 4)
+                {
+                    CheckWin (_board);
+                }
+
+                // changes flag for player turn
+                _yourTurn = !_yourTurn;
+
+                // disables the button from being clicked again
+                button.Enabled = false;
+
+                // checks if it is your opponents turn if it is calls OpponentMove
+                if (!_yourTurn)
+                {
+                    OpponentMove(_board);
+                }
+            }
+        }
+
+        // Gets called when it is the computers turn to move
         private void OpponentMove(Button[] buttons)
         {
-
+            // check who started the game first and if computer started goes into the if
             if (!_playerStart)
             {
+                // switches on the game turn count to determine where it should move
                 switch (_turnCount)
                 {
                     case 0:
                         buttons[4].PerformClick();
                         return;
                     case 2:
+                        // algorithmn strategy for opponent corner move
                         CornerMoveCheck(buttons);
                         if (_playerSecondTurnCornerStart)
                         {
@@ -103,6 +186,7 @@ namespace TicTacToe
                                 buttons[0].PerformClick();
                             }
                         }
+                        // Strategy for opponent side move
                         else
                         {
                             if (buttons[1].Enabled == false || buttons[7].Enabled == false)
@@ -116,45 +200,104 @@ namespace TicTacToe
                         }
                         return;
                     case 4:
+                        // checks to see if player started with corner move
                         if (_playerSecondTurnCornerStart)
                         {
-
+                            if (CheckForWinMove(buttons))
+                            {
+                                buttons[_winMove].PerformClick();
+                            }
+                            else if (CheckForBlockMove(buttons))
+                            {
+                                buttons[_blockMove].PerformClick();
+                            }
+                            else
+                            {
+                                CheckForNextMove(buttons);
+                                buttons[_normalMove].PerformClick();
+                            }
+                        }
+                        // if player started with side move
+                        else
+                        {
+                            if (CheckForWinMove(buttons))
+                            {
+                                buttons[_winMove].PerformClick();
+                            }
+                            else if (CheckForBlockMove(buttons))
+                            {
+                                buttons[_blockMove].PerformClick();
+                            }
+                            else
+                            {
+                                if (_previousMove == 3)
+                                {
+                                    buttons[2].PerformClick();
+                                }
+                                else
+                                {
+                                    buttons[6].PerformClick();
+                                }
+                            }
+                        }
+                        return;
+                    default:
+                        // default move case
+                        if (CheckForWinMove(buttons))
+                        {
+                            buttons[_winMove].PerformClick();
+                        }
+                        else if (CheckForBlockMove(buttons))
+                        {
+                            buttons[_blockMove].PerformClick();
                         }
                         else
                         {
-
+                            CheckForNextMove(buttons);
+                            buttons[_normalMove].PerformClick();
                         }
-                        return;
-                    case 6:
-                        return;
-                    case 8:
-                        return;
-                    default:
                         return;
                 }
             }
+            // if the player started first
             else
             {
+                // switches on the players turn
                 switch (_turnCount)
                 {
+                    // checks if the player started in the center or not then chooses move
                     case 1:
-                        buttons[4].PerformClick();
+                        if (buttons[4].Enabled == true)
+                        {
+                            buttons[4].PerformClick();
+                        }
+                        else
+                        {
+                            CheckForNextMove(buttons);
+                            buttons[_normalMove].PerformClick();
+                        }
                         return;
-                    case 3:
-                        return;
-                    case 4:
-                        return;
-                    case 5:
-                        return;
-                    case 7:
-                        return;
-                    
+                        // default computer move to tie game or win if player chooses bad move
                     default:
+                        if (CheckForWinMove(buttons))
+                        {
+                            buttons[_winMove].PerformClick();
+                        }
+                        else if (CheckForBlockMove(buttons))
+                        {
+                            buttons[_blockMove].PerformClick();
+                        }
+                        else
+                        {
+                            CheckForNextMove(buttons);
+                            buttons[_normalMove].PerformClick();
+                        }
                         return;
                 }
             }
         }
 
+        // Method to check the players strategy and whether second turn they started in a corner or not
         private void CornerMoveCheck(Button[] buttons)
         {
             if (_previousMove == 0 || _previousMove == 0 || _previousMove == 0 || _previousMove == 0 && buttons[_previousMove].Enabled == false)
@@ -167,8 +310,10 @@ namespace TicTacToe
             }
         }
 
+        // Computer check to see if there is a player win to block
         private bool CheckForBlockMove(Button[] buttons)
         {
+            // if player started
             if (_playerStart)
             {
                 if (buttons[1].Text == "X" & buttons[2].Text == "X" & buttons[0].Enabled == true)
@@ -286,6 +431,7 @@ namespace TicTacToe
                     return false;
                 }
             }
+            // if computer started
             else
             {
                 if (buttons[1].Text == "O" & buttons[2].Text == "O" & buttons[0].Enabled == true)
@@ -405,8 +551,10 @@ namespace TicTacToe
             }
         }
 
+        // check for if computer has a move that will win the game
         private bool CheckForWinMove(Button[] buttons)
         {
+            // if computer started the game
             if (!_playerStart)
             {
                 if (buttons[1].Text == "X" & buttons[2].Text == "X" & buttons[0].Enabled == true)
@@ -524,6 +672,7 @@ namespace TicTacToe
                     return false;
                 }
             }
+            // if the player started the game
             else
             {
                 if (buttons[1].Text == "O" & buttons[2].Text == "O" & buttons[0].Enabled == true)
@@ -643,6 +792,7 @@ namespace TicTacToe
             }
         }
 
+        // Check for a normal computer move starting with empty corners then moving to sides as backup
         private void CheckForNextMove(Button[] buttons)
         {
             if (buttons[0].Enabled == true)
@@ -683,64 +833,6 @@ namespace TicTacToe
             }
         }
 
-		private void ButtonClick (object sender, EventArgs e)
-		{
-			var button = sender as Button;
-
-            for (int i = 0; i < _board.Length; i++)
-            {
-                if (button == _board[i])
-                {
-                    _previousMove = i;
-                }
-            }
-
-			// If the player started the game
-			if (_playerStart)
-			{
-				// if it's the players turn
-				if (_yourTurn)
-				{
-					button.Text = "X";
-				}
-				// If it's the computers turn
-				else
-				{
-					button.Text = "O";
-				}
-			}
-			// If computer started the game
-			else
-			{
-				// If it's the players turn
-				if(_yourTurn)
-				{
-					button.Text = "O";
-				}
-				// if it's the computers turn
-				else
-				{
-					button.Text = "X";
-				}
-			}
-
-			// increases the turn counter
-			_turnCount++;
-
-
-			// checks for win after turn 4 since there is no possibility of winning before then
-			if (_turnCount > 4)
-			{
-				CheckWin (_board);
-			}
-
-			// changes flag for player turn
-			_yourTurn = !_yourTurn;
-
-			button.Enabled = false;
-
-		}
-
 		// checks to see if someone has won the game
 		private void CheckWin (Button[] buttons)
 		{
@@ -768,6 +860,8 @@ namespace TicTacToe
 
 			if(buttons[0].Text == buttons[1].Text & buttons[1].Text == buttons[2].Text & buttons[0].Text != String.Empty)
 			{
+                _gameOver = true;
+
 				if (_yourTurn)
 				{
 					winDialog.Show ();
@@ -779,6 +873,8 @@ namespace TicTacToe
 			}
 			else if(buttons[3].Text == buttons[4].Text & buttons[4].Text == buttons[5].Text & buttons[3].Text != String.Empty)
 			{
+                _gameOver = true;
+
 				if (_yourTurn)
 				{
 					winDialog.Show ();
@@ -790,6 +886,8 @@ namespace TicTacToe
 			}
 			else if(buttons[6].Text == buttons[7].Text & buttons[7].Text == buttons[8].Text & buttons[6].Text != String.Empty)
 			{
+                _gameOver = true;
+
 				if (_yourTurn)
 				{
 					winDialog.Show ();
@@ -801,6 +899,8 @@ namespace TicTacToe
 			}
 			else if(buttons[0].Text == buttons[3].Text & buttons[3].Text == buttons[6].Text & buttons[0].Text != String.Empty)
 			{
+                _gameOver = true;
+
 				if (_yourTurn)
 				{
 					winDialog.Show ();
@@ -812,6 +912,8 @@ namespace TicTacToe
 			}
 			else if(buttons[1].Text == buttons[4].Text & buttons[4].Text == buttons[7].Text & buttons[1].Text != String.Empty)
 			{
+                _gameOver = true;
+
 				if (_yourTurn)
 				{
 					winDialog.Show ();
@@ -823,6 +925,8 @@ namespace TicTacToe
 			}
 			else if(buttons[2].Text == buttons[5].Text & buttons[5].Text == buttons[8].Text & buttons[2].Text != String.Empty)
 			{
+                _gameOver = true;
+
 				if (_yourTurn)
 				{
 					winDialog.Show ();
@@ -834,6 +938,8 @@ namespace TicTacToe
 			}
 			else if(buttons[0].Text == buttons[4].Text & buttons[4].Text == buttons[8].Text & buttons[0].Text != String.Empty)
 			{
+                _gameOver = true;
+
 				if (_yourTurn)
 				{
 					winDialog.Show ();
@@ -845,6 +951,8 @@ namespace TicTacToe
 			}
 			else if(buttons[2].Text == buttons[4].Text & buttons[4].Text == buttons[6].Text & buttons[2].Text != String.Empty)
 			{
+                _gameOver = true;
+
 				if (_yourTurn)
 				{
 					winDialog.Show ();
@@ -856,6 +964,7 @@ namespace TicTacToe
 			}
 			else if(_turnCount == 9)
 			{
+                _gameOver = true;
 				tieDialog.Show ();
 			}
 			else
@@ -863,6 +972,15 @@ namespace TicTacToe
 				return;
 			}
 		}
+
+        // overrides the back button press to take you back to choose who starts
+        public override void OnBackPressed()
+        {
+            base.OnBackPressed();
+
+            Finish();
+            StartActivity(typeof(MainActivity));
+        }
 	}
 }
 
