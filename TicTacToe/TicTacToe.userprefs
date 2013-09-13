@@ -1,27 +1,28 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="TicTacToe\MainActivity.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="TicTacToe/PlayerGameActivity.cs">
     <Files>
-      <File FileName="TicTacToe\PlayerGameActivity.cs" Line="51" Column="48" />
-      <File FileName="TicTacToe\MainActivity.cs" Line="12" Column="143" />
+      <File FileName="TicTacToe/PlayerGameActivity.cs" Line="136" Column="43" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
-        <State expanded="True">
+        <State expanded="True" selected="True">
           <Node name="TicTacToe" expanded="True">
             <Node name="Properties" expanded="True" />
             <Node name="Resources" expanded="True">
               <Node name="drawable" expanded="True" />
               <Node name="layout" expanded="True" />
             </Node>
-            <Node name="MainActivity.cs" selected="True" />
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="C:\Users\smari_000\Documents\GitHub\TicTacToe\TicTacToe\TicTacToe\PlayerGameActivity.cs" line="91" column="13" />
+      <Breakpoint file="C:\Users\smari_000\Documents\GitHub\TicTacToe\TicTacToe\TicTacToe\PlayerGameActivity.cs" line="105" column="12" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.ItemProperties.TicTacToe MonoForAntroid.PreferredDevice="3.7in WVGA (Nexus One)" AndroidDeviceId-Debug="004a52aacd0ed7e2" />
