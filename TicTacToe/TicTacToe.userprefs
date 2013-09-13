@@ -2,7 +2,7 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="TicTacToe\PlayerGameActivity.cs">
     <Files>
-      <File FileName="TicTacToe\PlayerGameActivity.cs" Line="976" Column="81" />
+      <File FileName="TicTacToe\PlayerGameActivity.cs" Line="94" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -18,7 +18,10 @@
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="C:\Users\smari_000\Documents\GitHub\TicTacToe\TicTacToe\TicTacToe\PlayerGameActivity.cs" line="91" column="13" />
+      <Breakpoint file="C:\Users\smari_000\Documents\GitHub\TicTacToe\TicTacToe\TicTacToe\PlayerGameActivity.cs" line="105" column="12" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.ItemProperties.TicTacToe AndroidDeviceId-Debug="004a52aacd0ed7e2" MonoForAntroid.PreferredDevice="3.7in WVGA (Nexus One)" />

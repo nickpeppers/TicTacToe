@@ -24,7 +24,7 @@ namespace TicTacToe
         private int _blockMove;
         private int _normalMove;
         private bool _playerSecondTurnCornerStart;
-        private bool _gameOver;
+        private bool _playerStartMiddle;
 
 		protected override void OnCreate (Bundle bundle)
 		{
@@ -87,68 +87,55 @@ namespace TicTacToe
                     _previousMove = i;
                 }
             }
-            // Handles the case if a person hits back on popup after a game is over
-            if (_gameOver)
+            // If the player started the game
+            if (_playerStart)
             {
-                var gameOverDialog = new AlertDialog.Builder (this).SetTitle("Sorry!,").SetMessage("The game is over please restart.").SetPositiveButton("Restart",(sender1, e1) => 
+                // if it's the players turn
+                if (_yourTurn)
                 {
-                    Finish();
-                    StartActivity(typeof(MainActivity));
-                }).Create();
-                gameOverDialog.Show();
-            }
-            else
-            {
-                // If the player started the game
-                if (_playerStart)
-                {
-                    // if it's the players turn
-                    if (_yourTurn)
-                    {
-                        button.Text = "X";
-                    }
-                    // If it's the computers turn
-                    else
-                    {
-                        button.Text = "O";
-                    }
+                    button.Text = "X";
                 }
-                // If computer started the game
+                // If it's the computers turn
                 else
                 {
-                    // If it's the players turn
-                    if(_yourTurn)
-                    {
-                        button.Text = "O";
-                    }
-                    // if it's the computers turn
-                    else
-                    {
-                        button.Text = "X";
-                    }
+                    button.Text = "O";
                 }
-
-                // increases the turn counter
-                _turnCount++;
-
-
-                // checks for win after turn 4 since there is no possibility of winning before then
-                if (_turnCount > 4)
+            }
+            // If computer started the game
+            else
+            {
+                // If it's the players turn
+                if(_yourTurn)
                 {
-                    CheckWin (_board);
+                    button.Text = "O";
                 }
-
-                // changes flag for player turn
-                _yourTurn = !_yourTurn;
-
-                // disables the button from being clicked again
-                button.Enabled = false;
-
-                // checks if it is your opponents turn if it is calls OpponentMove
-                if (!_yourTurn)
+                // if it's the computers turn
+                else
                 {
-                    OpponentMove(_board);
+                    button.Text = "X";
                 }
+            }
+
+            // increases the turn counter
+            _turnCount++;
+
+
+            // checks for win after turn 4 since there is no possibility of winning before then
+            if (_turnCount > 4)
+            {
+                CheckWin (_board);
+            }
+
+            // changes flag for player turn
+            _yourTurn = !_yourTurn;
+
+            // disables the button from being clicked again
+            button.Enabled = false;
+
+            // checks if it is your opponents turn if it is calls OpponentMove
+            if (!_yourTurn)
+            {
+                OpponentMove(_board);
             }
         }
 
@@ -273,12 +260,89 @@ namespace TicTacToe
                         }
                         else
                         {
+                            _playerStartMiddle = true;
                             CheckForNextMove(buttons);
                             buttons[_normalMove].PerformClick();
                         }
                         return;
-                        // default computer move to tie game or win if player chooses bad move
+                    // Check to counter Player corner setup for win
+                    case 3:
+                        CornerMoveCheck(buttons);
+                        if (_playerStartMiddle == false && _playerSecondTurnCornerStart && (_previousMove == 0 || _previousMove == 2  || _previousMove == 6 || _previousMove == 8))
+                        {
+                            switch (_previousMove)
+                            {
+                                case 0:
+                                {
+                                    if (buttons[1].Enabled)
+                                    {
+                                        buttons[1].PerformClick();
+                                    }
+                                    else
+                                    {
+                                        buttons[3].PerformClick();
+                                    }
+                                    return;
+                                }
+                                case 2:
+                                {
+                                    if (buttons[1].Enabled)
+                                    {
+                                        buttons[1].PerformClick();
+                                    }
+                                    else
+                                    {
+                                        buttons[5].PerformClick();
+                                    }
+                                    return;
+                                }
+                                case 6:
+                                {
+                                    if (buttons[3].Enabled)
+                                    {
+                                        buttons[3].PerformClick();
+                                    }
+                                    else
+                                    {
+                                        buttons[7].PerformClick();
+                                    }
+                                    return;
+                                }
+                                case 8:
+                                {
+                                    if (buttons[5].Enabled)
+                                    {
+                                        buttons[5].PerformClick();
+                                    }
+                                    else
+                                    {
+                                        buttons[7].PerformClick();
+                                    }
+                                    return;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (CheckForWinMove(buttons))
+                            {
+                                buttons[_winMove].PerformClick();
+                            }
+                            else if (CheckForBlockMove(buttons))
+                            {
+                                buttons[_blockMove].PerformClick();
+                            }
+                            else
+                            {
+                                CheckForNextMove(buttons);
+                                buttons[_normalMove].PerformClick();
+                            }
+                            return;
+                        }
+                        return;
+                    // default computer move to tie game or win if player chooses bad move
                     default:
+                    {
                         if (CheckForWinMove(buttons))
                         {
                             buttons[_winMove].PerformClick();
@@ -293,6 +357,7 @@ namespace TicTacToe
                             buttons[_normalMove].PerformClick();
                         }
                         return;
+                    }
                 }
             }
         }
@@ -300,7 +365,7 @@ namespace TicTacToe
         // Method to check the players strategy and whether second turn they started in a corner or not
         private void CornerMoveCheck(Button[] buttons)
         {
-            if (_previousMove == 0 || _previousMove == 0 || _previousMove == 0 || _previousMove == 0 && buttons[_previousMove].Enabled == false)
+            if (_previousMove == 0 || _previousMove == 2 || _previousMove == 6 || _previousMove == 8 && buttons[_previousMove].Enabled == false)
             {
                 _playerSecondTurnCornerStart = true;
             }
@@ -860,8 +925,13 @@ namespace TicTacToe
 
 			if(buttons[0].Text == buttons[1].Text & buttons[1].Text == buttons[2].Text & buttons[0].Text != String.Empty)
 			{
-                _gameOver = true;
-
+                foreach (var button in buttons)
+                {
+                    if (button.Enabled)
+                    {
+                        button.Enabled = false;
+                    }
+                }
 				if (_yourTurn)
 				{
 					winDialog.Show ();
@@ -873,8 +943,13 @@ namespace TicTacToe
 			}
 			else if(buttons[3].Text == buttons[4].Text & buttons[4].Text == buttons[5].Text & buttons[3].Text != String.Empty)
 			{
-                _gameOver = true;
-
+                foreach (var button in buttons)
+                {
+                    if (button.Enabled)
+                    {
+                        button.Enabled = false;
+                    }
+                }
 				if (_yourTurn)
 				{
 					winDialog.Show ();
@@ -886,8 +961,13 @@ namespace TicTacToe
 			}
 			else if(buttons[6].Text == buttons[7].Text & buttons[7].Text == buttons[8].Text & buttons[6].Text != String.Empty)
 			{
-                _gameOver = true;
-
+                foreach (var button in buttons)
+                {
+                    if (button.Enabled)
+                    {
+                        button.Enabled = false;
+                    }
+                }
 				if (_yourTurn)
 				{
 					winDialog.Show ();
@@ -899,8 +979,13 @@ namespace TicTacToe
 			}
 			else if(buttons[0].Text == buttons[3].Text & buttons[3].Text == buttons[6].Text & buttons[0].Text != String.Empty)
 			{
-                _gameOver = true;
-
+                foreach (var button in buttons)
+                {
+                    if (button.Enabled)
+                    {
+                        button.Enabled = false;
+                    }
+                }
 				if (_yourTurn)
 				{
 					winDialog.Show ();
@@ -912,7 +997,13 @@ namespace TicTacToe
 			}
 			else if(buttons[1].Text == buttons[4].Text & buttons[4].Text == buttons[7].Text & buttons[1].Text != String.Empty)
 			{
-                _gameOver = true;
+                foreach (var button in buttons)
+                {
+                    if (button.Enabled)
+                    {
+                        button.Enabled = false;
+                    }
+                }
 
 				if (_yourTurn)
 				{
@@ -925,7 +1016,13 @@ namespace TicTacToe
 			}
 			else if(buttons[2].Text == buttons[5].Text & buttons[5].Text == buttons[8].Text & buttons[2].Text != String.Empty)
 			{
-                _gameOver = true;
+                foreach (var button in buttons)
+                {
+                    if (button.Enabled)
+                    {
+                        button.Enabled = false;
+                    }
+                }
 
 				if (_yourTurn)
 				{
@@ -938,8 +1035,13 @@ namespace TicTacToe
 			}
 			else if(buttons[0].Text == buttons[4].Text & buttons[4].Text == buttons[8].Text & buttons[0].Text != String.Empty)
 			{
-                _gameOver = true;
-
+                foreach (var button in buttons)
+                {
+                    if (button.Enabled)
+                    {
+                        button.Enabled = false;
+                    }
+                }
 				if (_yourTurn)
 				{
 					winDialog.Show ();
@@ -951,8 +1053,13 @@ namespace TicTacToe
 			}
 			else if(buttons[2].Text == buttons[4].Text & buttons[4].Text == buttons[6].Text & buttons[2].Text != String.Empty)
 			{
-                _gameOver = true;
-
+                foreach (var button in buttons)
+                {
+                    if (button.Enabled)
+                    {
+                        button.Enabled = false;
+                    }
+                }
 				if (_yourTurn)
 				{
 					winDialog.Show ();
@@ -964,7 +1071,13 @@ namespace TicTacToe
 			}
 			else if(_turnCount == 9)
 			{
-                _gameOver = true;
+                foreach (var button in buttons)
+                {
+                    if (button.Enabled)
+                    {
+                        button.Enabled = false;
+                    }
+                }
 				tieDialog.Show ();
 			}
 			else
