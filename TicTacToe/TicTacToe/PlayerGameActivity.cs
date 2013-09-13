@@ -133,7 +133,7 @@ namespace TicTacToe
             button.Enabled = false;
 
             // checks if it is your opponents turn if it is calls OpponentMove
-            if (!_yourTurn)
+            if (!_yourTurn && _turnCount != 9)
             {
                 OpponentMove(_board);
             }
