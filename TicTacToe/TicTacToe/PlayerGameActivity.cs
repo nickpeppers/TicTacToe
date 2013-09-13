@@ -9,6 +9,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Content.PM;
+using Android.Graphics;
 
 namespace TicTacToe
 {
@@ -54,6 +55,8 @@ namespace TicTacToe
 			foreach (var button in _board) 
 			{
 				button.Click += ButtonClick;
+                button.SetBackgroundColor(Color.Transparent);
+                button.SetTextColor(Color.GhostWhite);
 			}
 
 
