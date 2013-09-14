@@ -22,6 +22,7 @@ namespace TicTacToe
         private int _previousMove;
         private int _winMove;
         private int _blockMove;
+        private int _blockDoubleWin;
         private int _normalMove;
         private bool _playerSecondTurnCornerStart;
         private bool _playerStartMiddle;
@@ -265,79 +266,22 @@ namespace TicTacToe
                             buttons[_normalMove].PerformClick();
                         }
                         return;
-                    // Check to counter Player corner setup for win
+                    // Check to counter Player setup for win
                     case 3:
-                        CornerMoveCheck(buttons);
-                        if (_playerStartMiddle == false && _playerSecondTurnCornerStart && (_previousMove == 0 || _previousMove == 2  || _previousMove == 6 || _previousMove == 8))
+                        if (CheckForBlockMove(buttons))
                         {
-                            switch (_previousMove)
-                            {
-                                case 0:
-                                {
-                                    if (buttons[1].Enabled)
-                                    {
-                                        buttons[1].PerformClick();
-                                    }
-                                    else
-                                    {
-                                        buttons[3].PerformClick();
-                                    }
-                                    return;
-                                }
-                                case 2:
-                                {
-                                    if (buttons[1].Enabled)
-                                    {
-                                        buttons[1].PerformClick();
-                                    }
-                                    else
-                                    {
-                                        buttons[5].PerformClick();
-                                    }
-                                    return;
-                                }
-                                case 6:
-                                {
-                                    if (buttons[3].Enabled)
-                                    {
-                                        buttons[3].PerformClick();
-                                    }
-                                    else
-                                    {
-                                        buttons[7].PerformClick();
-                                    }
-                                    return;
-                                }
-                                case 8:
-                                {
-                                    if (buttons[5].Enabled)
-                                    {
-                                        buttons[5].PerformClick();
-                                    }
-                                    else
-                                    {
-                                        buttons[7].PerformClick();
-                                    }
-                                    return;
-                                }
-                            }
+                            buttons[_blockMove].PerformClick();
+                        }
+                        else if (CheckForDoubleWin(buttons))
+                        {
+                            buttons[_blockDoubleWin].PerformClick();
                         }
                         else
                         {
-                            if (CheckForWinMove(buttons))
+                            if(_previousMove == 8)
                             {
-                                buttons[_winMove].PerformClick();
+                               buttons[2].PerformClick();
                             }
-                            else if (CheckForBlockMove(buttons))
-                            {
-                                buttons[_blockMove].PerformClick();
-                            }
-                            else
-                            {
-                                CheckForNextMove(buttons);
-                                buttons[_normalMove].PerformClick();
-                            }
-                            return;
                         }
                         return;
                     // default computer move to tie game or win if player chooses bad move
@@ -854,6 +798,60 @@ namespace TicTacToe
                 {
                     return false;
                 }
+            }
+        }
+
+        // Method to prevent 3rd turn double win if player doesn't start in center
+        private bool CheckForDoubleWin(Button[] buttons)
+        {
+            if (buttons[5].Text == "X" & (buttons[7].Text == "X" || buttons[6].Text == "X"))
+            {
+                _blockDoubleWin = 8;
+                return true;
+            }
+            else if (buttons[5].Text == "X" & (buttons[1].Text == "X" || buttons[0].Text == "X"))
+            {
+                _blockDoubleWin = 2;
+                return true;
+            }
+            else if (buttons[3].Text == "X" & (buttons[7].Text == "X" || buttons[8].Text == "X"))
+            {
+                _blockDoubleWin = 6;
+                return true;
+            }
+            else if (buttons[3].Text == "X" & (buttons[1].Text == "X" || buttons[2].Text == "X"))
+            {
+                _blockDoubleWin = 0;
+                return true;
+            }
+            else if (buttons[7].Text == "X" & (buttons[5].Text == "X" || buttons[2].Text == "X"))
+            {
+                _blockDoubleWin = 8;
+                return true;
+            }
+            else if (buttons[7].Text == "X" & (buttons[3].Text == "X" || buttons[0].Text == "X"))
+            {
+                _blockDoubleWin = 6;
+                return true;
+            }
+            else if (buttons[1].Text == "X" & (buttons[3].Text == "X" || buttons[6].Text == "X"))
+            {
+                _blockDoubleWin = 0;
+                return true;
+            }
+            else if (buttons[1].Text == "X" & (buttons[5].Text == "X" || buttons[8].Text == "X"))
+            {
+                _blockDoubleWin = 2;
+                return true;
+            }
+            else if ((buttons[0].Text == "X" & buttons[8].Text == "X") || (buttons[2].Text == "X" & buttons[6].Text == "X"))
+            {
+                _blockDoubleWin = 3;
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
