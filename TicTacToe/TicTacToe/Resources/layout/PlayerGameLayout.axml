@@ -13,20 +13,29 @@
         android:layout_weight="1"
         android:paddingTop="10dp"
         android:paddingRight="10dp"
-        android:paddingLeft="10dp"
-        android:paddingBottom="5dp">
+        android:paddingLeft="10dp">
         <Button
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:id="@+id/button1"
             android:textSize="75dp"
             android:layout_weight="1" />
+        <ImageView
+            android:src="#ffffffff"
+            android:layout_width="2dp"
+            android:layout_height="fill_parent"
+            android:id="@+id/VerticalLine1" />
         <Button
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:id="@+id/button2"
             android:textSize="75dp"
             android:layout_weight="1" />
+        <ImageView
+            android:src="#ffffffff"
+            android:layout_width="2dp"
+            android:layout_height="fill_parent"
+            android:id="@+id/VerticalLine2" />
         <Button
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
@@ -42,9 +51,7 @@
         android:layout_height="fill_parent"
         android:id="@+id/Row2"
         android:layout_weight="1"
-        android:paddingTop="5dp"
         android:paddingRight="10dp"
-        android:paddingBottom="5dp"
         android:paddingLeft="10dp">
         <Button
             android:layout_width="fill_parent"
@@ -52,12 +59,22 @@
             android:id="@+id/button4"
             android:textSize="75dp"
             android:layout_weight="1" />
+        <ImageView
+            android:src="#ffffffff"
+            android:layout_width="2dp"
+            android:layout_height="fill_parent"
+            android:id="@+id/VerticalLine3" />
         <Button
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:id="@+id/button5"
             android:textSize="75dp"
             android:layout_weight="1" />
+        <ImageView
+            android:src="#ffffffff"
+            android:layout_width="2dp"
+            android:layout_height="fill_parent"
+            android:id="@+id/VerticalLine4" />
         <Button
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
@@ -73,7 +90,6 @@
         android:layout_height="fill_parent"
         android:id="@+id/Row3"
         android:layout_weight="1"
-        android:paddingTop="5dp"
         android:paddingRight="10dp"
         android:paddingBottom="10dp"
         android:paddingLeft="10dp">
@@ -83,12 +99,22 @@
             android:id="@+id/button7"
             android:textSize="75dp"
             android:layout_weight="1" />
+        <ImageView
+            android:src="#ffffffff"
+            android:layout_width="2dp"
+            android:layout_height="fill_parent"
+            android:id="@+id/VerticalLine5" />
         <Button
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:id="@+id/button8"
             android:textSize="75dp"
             android:layout_weight="1" />
+        <ImageView
+            android:src="#ffffffff"
+            android:layout_width="2dp"
+            android:layout_height="fill_parent"
+            android:id="@+id/VerticalLine6" />
         <Button
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
