@@ -67,6 +67,8 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\Icon.png" />
     <AndroidResource Include="Resources\layout\SplashScreenLayout.axml" />
     <AndroidResource Include="Resources\drawable\Icon144x144.png" />
+    <AndroidResource Include="Resources\Anim\splash_fade_in.xml" />
+    <AndroidResource Include="Resources\Anim\splash_fade_out.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ProjectExtensions>
@@ -84,5 +86,6 @@
     <Folder Include="Resources\drawable-xhdpi\" />
     <Folder Include="Resources\drawable-xxhdpi\" />
     <Folder Include="Resources\drawable\" />
+    <Folder Include="Resources\Anim\" />
   </ItemGroup>
 </Project>

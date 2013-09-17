@@ -13,4 +13,14 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:id="@+id/IconLogo" />
+    <TextView
+        android:text="Tic Tac Toe"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/TitleText"
+        android:textSize="45dp"
+        android:layout_below="@+id/IconLogo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
 </RelativeLayout>

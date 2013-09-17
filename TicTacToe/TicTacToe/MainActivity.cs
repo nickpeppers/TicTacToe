@@ -9,7 +9,7 @@ using Android.Content.PM;
 
 namespace TicTacToe
 {
-	[Activity (Label = "Tic Tac Toe", MainLauncher = true, LaunchMode = LaunchMode.SingleInstance, ScreenOrientation = ScreenOrientation.Portrait)]
+	[Activity (Label = "Tic Tac Toe", LaunchMode = LaunchMode.SingleInstance, ScreenOrientation = ScreenOrientation.Portrait)]
 	public class MainActivity : Activity
 	{
 
