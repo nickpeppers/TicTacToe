@@ -13,7 +13,7 @@ using Android.Graphics;
 
 namespace TicTacToe
 {
-	[Activity (Label = "PlayerGameActivity", ScreenOrientation = ScreenOrientation.Portrait)]			
+    [Activity (Label = "Tic Tac Toe", ScreenOrientation = ScreenOrientation.Portrait)]			
 	public class PlayerGameActivity : Activity
 	{
 		private Button[] _board;
