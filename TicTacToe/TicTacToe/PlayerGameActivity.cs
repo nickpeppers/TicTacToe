@@ -26,7 +26,6 @@ namespace TicTacToe
         private int _blockDoubleWin;
         private int _normalMove;
         private bool _playerSecondTurnCornerStart;
-        private bool _playerStartMiddle;
 
 		protected override void OnCreate (Bundle bundle)
 		{
@@ -263,7 +262,6 @@ namespace TicTacToe
                         }
                         else
                         {
-                            _playerStartMiddle = true;
                             CheckForNextMove(buttons);
                             buttons[_normalMove].PerformClick();
                         }
