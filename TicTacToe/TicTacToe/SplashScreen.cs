@@ -11,6 +11,7 @@ using Android.Widget;
 using Android.Content.PM;
 using Android.Views.Animations;
 using System.Threading;
+using TicTacToe;
 
 namespace WKUACM.Activities
 {
@@ -39,7 +40,7 @@ namespace WKUACM.Activities
 
             _fadeOut.AnimationEnd += (sender, e) =>
             {
-                var intent = new Intent(this, typeof(Main));
+                var intent = new Intent(this, typeof(MainActivity));
                 StartActivity(intent);
                 _splashLayout.Visibility = ViewStates.Gone;
 

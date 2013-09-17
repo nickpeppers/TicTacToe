@@ -47,6 +47,9 @@ namespace TicTacToe
 			// aapt resource value: 0x7f020000
 			public const int Icon = 2130837504;
 			
+			// aapt resource value: 0x7f020001
+			public const int Icon144x144 = 2130837505;
+			
 			static Drawable()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -63,6 +66,9 @@ namespace TicTacToe
 			// aapt resource value: 0x7f050004
 			public const int ComputerStartButon = 2131034116;
 			
+			// aapt resource value: 0x7f050013
+			public const int IconLogo = 2131034131;
+			
 			// aapt resource value: 0x7f050003
 			public const int PlayerStartButton = 2131034115;
 			
@@ -77,6 +83,9 @@ namespace TicTacToe
 			
 			// aapt resource value: 0x7f05000d
 			public const int Row3 = 2131034125;
+			
+			// aapt resource value: 0x7f050012
+			public const int SplashScreenLayout = 2131034130;
 			
 			// aapt resource value: 0x7f050002
 			public const int TitleText = 2131034114;
@@ -132,6 +141,9 @@ namespace TicTacToe
 			
 			// aapt resource value: 0x7f030001
 			public const int PlayerGameLayout = 2130903041;
+			
+			// aapt resource value: 0x7f030002
+			public const int SplashScreenLayout = 2130903042;
 			
 			static Layout()
 			{
