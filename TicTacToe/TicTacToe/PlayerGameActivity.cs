@@ -182,7 +182,7 @@ namespace TicTacToe
                             {
                                 buttons[5].PerformClick();
                             }
-                            else
+                            else if(buttons[3].Enabled == false || buttons[5].Enabled == false)
                             {
                                 buttons[7].PerformClick();
                             }
@@ -276,12 +276,17 @@ namespace TicTacToe
                         {
                             buttons[_blockDoubleWin].PerformClick();
                         }
+                        else if (_previousMove == 8)
+                        {
+                            buttons[2].PerformClick();
+                        }
+                        else if (buttons[7].Enabled == true)
+                        {
+                            buttons[7].PerformClick();
+                        }
                         else
                         {
-                            if(_previousMove == 8)
-                            {
-                               buttons[2].PerformClick();
-                            }
+                            buttons[5].PerformClick();
                         }
                         return;
                     // default computer move to tie game or win if player chooses bad move
